@@ -1,6 +1,12 @@
-
-import { useAuth } from '@/contexts/AuthContext';
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useAuth } from "@/contexts/AuthContext";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 export default function ProfileScreen() {
   const { user, signOut } = useAuth();
@@ -9,7 +15,7 @@ export default function ProfileScreen() {
     try {
       await signOut();
     } catch (error) {
-      console.error('Sign out error:', error);
+      console.error("Sign out error:", error);
     }
   };
 
@@ -26,11 +32,15 @@ export default function ProfileScreen() {
       <View style={styles.header}>
         <View style={styles.profileSection}>
           {user.image ? (
-            <Image source={{ uri: user.image }} style={styles.avatar} />
+            <Image
+              source={{ uri: `https://cis.kku.ac.th${user.image}` }}
+              style={styles.avatar}
+            />
           ) : (
             <View style={[styles.avatar, styles.avatarPlaceholder]}>
               <Text style={styles.avatarText}>
-                {user.firstname.charAt(0)}{user.lastname.charAt(0)}
+                {user.firstname.charAt(0)}
+                {user.lastname.charAt(0)}
               </Text>
             </View>
           )}
@@ -43,11 +53,14 @@ export default function ProfileScreen() {
 
       <View style={styles.infoSection}>
         <Text style={styles.sectionTitle}>ข้อมูลส่วนตัว</Text>
-        
+
         <View style={styles.infoCard}>
           <InfoRow label="บทบาท" value={user.role} />
           <InfoRow label="ประเภท" value={user.type} />
-          <InfoRow label="สถานะ" value={user.confirmed ? 'ยืนยันแล้ว' : 'ยังไม่ยืนยัน'} />
+          <InfoRow
+            label="สถานะ"
+            value={user.confirmed ? "ยืนยันแล้ว" : "ยังไม่ยืนยัน"}
+          />
         </View>
 
         {user.education && (
@@ -57,7 +70,10 @@ export default function ProfileScreen() {
               <InfoRow label="สาขา: " value={user.education.major} />
               <InfoRow label="รหัสนักศึกษา" value={user.education.studentId} />
               {user.education.enrollmentYear && (
-                <InfoRow label="ปีที่เข้าศึกษา" value={user.education.enrollmentYear} />
+                <InfoRow
+                  label="ปีที่เข้าศึกษา"
+                  value={user.education.enrollmentYear}
+                />
               )}
             </View>
           </>
@@ -83,16 +99,16 @@ function InfoRow({ label, value }: { label: string; value: string }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: "#f5f5f5",
   },
   header: {
-    backgroundColor: '#007AFF',
+    backgroundColor: "#007AFF",
     paddingTop: 20,
     paddingBottom: 30,
     paddingHorizontal: 20,
   },
   profileSection: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   avatar: {
     width: 100,
@@ -100,27 +116,27 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     marginBottom: 16,
     borderWidth: 3,
-    borderColor: '#fff',
+    borderColor: "#fff",
   },
   avatarPlaceholder: {
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center",
   },
   avatarText: {
     fontSize: 36,
-    fontWeight: 'bold',
-    color: '#007AFF',
+    fontWeight: "bold",
+    color: "#007AFF",
   },
   name: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#fff',
+    fontWeight: "bold",
+    color: "#fff",
     marginBottom: 4,
   },
   email: {
     fontSize: 14,
-    color: '#fff',
+    color: "#fff",
     opacity: 0.9,
   },
   infoSection: {
@@ -128,17 +144,17 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 12,
     marginTop: 8,
-    color: '#333',
+    color: "#333",
   },
   infoCard: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 12,
     padding: 16,
     marginBottom: 16,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -148,33 +164,33 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   infoRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: "#f0f0f0",
   },
   infoLabel: {
     fontSize: 14,
-    color: '#666',
-    fontWeight: '500',
+    color: "#666",
+    fontWeight: "500",
   },
   infoValue: {
     fontSize: 14,
-    color: '#333',
-    fontWeight: '500',
+    color: "#333",
+    fontWeight: "500",
   },
   signOutButton: {
-    backgroundColor: '#ff3b30',
+    backgroundColor: "#ff3b30",
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 8,
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
     marginTop: 8,
   },
   signOutText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });
